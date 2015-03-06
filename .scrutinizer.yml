@@ -2,7 +2,9 @@ filter:
     paths: [lib/*]
     excluded_paths: [vendor/*, tests/*]
 before_commands:
-    - 'composer install --dev --prefer-source'
+    - 'composer self-update'
+    - 'composer install --prefer-source --no-interaction --dev'
+
 tools:
     external_code_coverage: true
     php_mess_detector: true

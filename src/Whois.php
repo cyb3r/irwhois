@@ -31,7 +31,7 @@ class Whois
      *
      * @var array
      */
-    private $servers = [
+    private $servers = array(
         'com'       => 'whois.verisign-grs.com',
         'net'       => 'whois.verisign-grs.com',
         'org'       => 'whois.publicinterestregistry.net',
@@ -41,7 +41,7 @@ class Whois
         'ca'        => 'whois.cira.ca',
         'au'        => 'whois.audns.net.au',
         '*'         => 'whois-servers.net',
-    ];
+    );
 
     /**
 	 * Construct
