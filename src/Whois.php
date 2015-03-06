@@ -58,7 +58,8 @@ class Whois
             $this->domain = $domain;
 
             // TLD
-            $this->tld = strtolower(array_pop(explode(".", $this->domain)));
+            $parts = explode(".", $this->domain);
+            $this->tld = strtolower(array_pop($parts));
 
             // Run
             $this->execute();

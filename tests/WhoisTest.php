@@ -2,6 +2,8 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+date_default_timezone_set("Europe/Madrid");
+
 use Arall\Whois;
 
 class WhoisTest extends PHPUnit_Framework_TestCase
