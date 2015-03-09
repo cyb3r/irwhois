@@ -9,7 +9,8 @@
             "email": "behrooz.abbasy@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "version": "1.0",
+    "minimum-stability": "dev-master",
     "require": {
         "php": ">=5.3.0"
     },
