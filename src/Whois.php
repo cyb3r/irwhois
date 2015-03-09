@@ -36,7 +36,7 @@ class Whois
     /**
 	 * Construct
      *
-     * @throws \InvalidArgumentException If the domain is not valid
+     * @throws InvalidArgumentException If the domain is not valid
 	 * @param string $domain Domain name
 	 */
     public function __construct($domain)
