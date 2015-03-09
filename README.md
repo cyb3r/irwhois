@@ -1,6 +1,6 @@
-# Whois
+# IrWhois
 
-PHP class to retrieve WHOIS information.
+PHP class to retrieve '.ir' domains WHOIS information.
 
 # Install
 
