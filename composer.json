@@ -1,6 +1,6 @@
 {
-    "name": "arall/whois",
-    "description": "PHP class to retrieve WHOIS information.",
+    "name": "behrouz/irwhois",
+    "description": "PHP class to retrieve .ir domains WHOIS information.",
     "license": "MIT",
     "keywords": ["whois"],
     "authors": [
@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Arall\\": "src/"
+            "IrWhois\\": "src/"
         }
     }
 }

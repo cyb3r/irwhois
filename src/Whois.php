@@ -1,6 +1,6 @@
 <?php
 
-namespace Arall;
+namespace IrWhois;
 
 class Whois
 {
@@ -31,22 +31,12 @@ class Whois
      *
      * @var array
      */
-    private $servers = array(
-        'com'       => 'whois.verisign-grs.com',
-        'net'       => 'whois.verisign-grs.com',
-        'org'       => 'whois.publicinterestregistry.net',
-        'info'      => 'whois.afilias.info',
-        'biz'       => 'whois.biz',
-        'uk'        => 'whois.nic.uk',
-        'ca'        => 'whois.cira.ca',
-        'au'        => 'whois.audns.net.au',
-        '*'         => 'whois-servers.net',
-    );
+    private $server = 'whois.nic.ir';
 
     /**
 	 * Construct
      *
-     * @throws InvalidArgumentException If the domain is not valid
+     * @throws \InvalidArgumentException If the domain is not valid
 	 * @param string $domain Domain name
 	 */
     public function __construct($domain)
@@ -83,9 +73,9 @@ class Whois
 
             // Connect
             try {
-                $server = isset($this->servers[$this->tld]) ? $this->servers[$this->tld] : $this->tld . '.' . $this->servers['*'];
+                $server = $this->server;
                 $connection = fsockopen($server, 43);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 return false;
             }
 
@@ -105,15 +95,6 @@ class Whois
         }
     }
 
-    /**
-     * Get domain creation date
-     *
-     * @return string|bool
-     */
-    public function getCreationDate()
-    {
-        return $this->parseDate($this->parseText('creation date'));
-    }
 
     /**
      * Get domain update date
@@ -122,8 +103,9 @@ class Whois
      */
     public function getUpdateDate()
     {
-        return $this->parseDate($this->parseText('(update|updated) date', 2));
+        return $this->parseDate($this->parseText('last-updated'));
     }
+
 
     /**
      * Get domain expiration date
@@ -132,28 +114,71 @@ class Whois
      */
     public function getExpirationDate()
     {
-        return $this->parseDate($this->parseText('(expiration|expiry) date', 2));
+        return $this->parseDate($this->parseText('expire-date'));
     }
 
     /**
-     * Get domain Registrar
+     * Get domain organisation
      *
-     * @return string
+     * @return string|bool
      */
-    public function getRegistrar()
+    public function getOrganization()
     {
-        return $this->parseText('registrar');
+        return $this->parseText('org');
     }
 
     /**
-     * Get domain ID
+     * Get domain holder fax number
+     *
+     * @return string|bool
+     */
+    public function getFaxNumber()
+    {
+        return $this->parseText('fax-no');
+    }
+
+
+
+    /**
+     * Get domain nic handler
+     *
+     * @return string|bool
+     */
+    public function getNicHandler()
+    {
+        return $this->parseText('nic-hdl');
+    }
+
+    /**
+     * Get domain holder address
+     *
+     * @return string|bool
+     */
+    public function getHolderAddress()
+    {
+        return $this->parseText('address');
+    }
+
+    /**
+     * Get domain holder phone
+     *
+     * @return string|bool
+     */
+    public function getHolderPhone()
+    {
+        return $this->parseText('phone');
+    }
+
+    /**
+     * Get domain Holder
      *
      * @return string
      */
-    public function getId()
+    public function getHolder()
     {
-        return $this->parseText('domain id');
+        return str_replace('(Domain Holder)','',$this->parseText('remarks'));
     }
+
 
     /**
      * Check if domain is currenly allowing transfers
@@ -175,7 +200,6 @@ class Whois
     private function parseText($text, $index = 1)
     {
         preg_match('/'.$text.': ?(.*)/i', $this->result, $match);
-
         return isset($match[$index]) ? trim(preg_replace('/\s+/', ' ', $match[$index])) : false;
     }
 
@@ -187,7 +211,7 @@ class Whois
      */
     private function parseDate($date)
     {
-        return $date ? date('Y-m-d H:i:s', strtotime($date)) : false;
+        return $date ? date('Y-m-d', strtotime($date)) : false;
     }
 
 }

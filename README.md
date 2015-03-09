@@ -9,4 +9,4 @@ PHP class to retrieve WHOIS information.
 Add the package in your composer.json by executing the command.
 
 ```
-composer require arall/whois
+composer require behrouz/whois

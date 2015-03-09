@@ -1,6 +1,6 @@
 <?php
 
-namespace Arall;
+namespace IrWhois;
 
 class ResolveErrorException extends \Exception
 {
